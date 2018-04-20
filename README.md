@@ -100,6 +100,7 @@ All other libraries we are going to download through lein, below i am giving my 
 You can write reloadable code, figwheel can facilitate automated live interactive programming.
 
 Go to the app directory and run the figwheel project
+
 `
 cd winiunapp
 `
@@ -107,6 +108,7 @@ cd winiunapp
 `
 lein figwheel
 `
+
 Automatically the browser open a new tab in `http://localhost:3449/index.html`
 ![Winium Interface](https://github.com/andresr22/winium-sample-clojure/raw/master/assets/interface.png)
 
