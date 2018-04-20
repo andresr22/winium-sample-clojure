@@ -1,0 +1,176 @@
+<html>
+ <head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="stylesheet" href="../coverage.css"/>  <title> server/winium.clj </title>
+ </head>
+ <body>
+<span class="covered" title="1 out of 1 forms covered">
+                 001&nbsp;&nbsp;(ns&nbsp;server.winium
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 002&nbsp;&nbsp;&nbsp;&nbsp;(:require&nbsp;[clojure.data.codec.base64&nbsp;:as&nbsp;b64])
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 003&nbsp;&nbsp;&nbsp;&nbsp;(:import&nbsp;[org.openqa.selenium&nbsp;OutputType&nbsp;TakesScreenshot]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 004&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[org.openqa.selenium&nbsp;WebElement]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 005&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[org.openqa.selenium.winium&nbsp;DesktopOptions&nbsp;WiniumDriver]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 006&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[org.apache.commons.io&nbsp;FileUtils]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 007&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[java.io&nbsp;File&nbsp;FileInputStream]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 008&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[java.nio.file&nbsp;Paths&nbsp;Files]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 009&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[java.net&nbsp;URL]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 010&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[java.util&nbsp;Base64]))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                 011&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                 012&nbsp;&nbsp;(defn&nbsp;encoder&nbsp;[image-path]
+                </span><br/>
+<span class="not-covered" title="0 out of 4 forms covered">
+                 013&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[image-data&nbsp;(Files&#x2F;readAllBytes&nbsp;(Paths&#x2F;get&nbsp;image-path))
+                </span><br/>
+<span class="not-covered" title="0 out of 2 forms covered">
+                 014&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;base64Image&nbsp;(.encodeToString&nbsp;(Base64&#x2F;getEncoder)&nbsp;image-data)]
+                </span><br/>
+<span class="not-covered" title="0 out of 1 forms covered">
+                 015&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;base64Image))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                 016&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                 017&nbsp;&nbsp;(defn&nbsp;build-option&nbsp;[appPath]
+                </span><br/>
+<span class="not-covered" title="0 out of 2 forms covered">
+                 018&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[option&nbsp;(new&nbsp;DesktopOptions)]
+                </span><br/>
+<span class="not-covered" title="0 out of 2 forms covered">
+                 019&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(.setApplicationPath&nbsp;option&nbsp;appPath)
+                </span><br/>
+<span class="not-covered" title="0 out of 2 forms covered">
+                 020&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(.setDebugConnectToRunningApp&nbsp;option&nbsp;false)
+                </span><br/>
+<span class="not-covered" title="0 out of 4 forms covered">
+                 021&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(.setLaunchDelay&nbsp;option&nbsp;(int&nbsp;2))
+                </span><br/>
+<span class="not-covered" title="0 out of 1 forms covered">
+                 022&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;option))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                 023&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                 024&nbsp;&nbsp;(defn&nbsp;build-url&nbsp;[ip]
+                </span><br/>
+<span class="not-covered" title="0 out of 6 forms covered">
+                 025&nbsp;&nbsp;&nbsp;&nbsp;(new&nbsp;URL&nbsp;(str&nbsp;&quot;http:&#x2F;&#x2F;&quot;&nbsp;ip&nbsp;&quot;:9999&quot;)))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                 026&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                 027&nbsp;&nbsp;(defn&nbsp;build-driver&nbsp;[url&nbsp;option]
+                </span><br/>
+<span class="not-covered" title="0 out of 3 forms covered">
+                 028&nbsp;&nbsp;&nbsp;&nbsp;(new&nbsp;WiniumDriver&nbsp;url&nbsp;option))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                 029&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                 030&nbsp;&nbsp;(defn&nbsp;build-window&nbsp;[driver]
+                </span><br/>
+<span class="not-covered" title="0 out of 2 forms covered">
+                 031&nbsp;&nbsp;&nbsp;&nbsp;(.findElementByName&nbsp;driver&nbsp;&quot;Text&nbsp;Area&quot;))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                 032&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                 033&nbsp;&nbsp;(defn&nbsp;get-data&nbsp;[key&nbsp;data_user]
+                </span><br/>
+<span class="not-covered" title="0 out of 4 forms covered">
+                 034&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[key&nbsp;(keyword&nbsp;key)]
+                </span><br/>
+<span class="not-covered" title="0 out of 4 forms covered">
+                 035&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(get&nbsp;data_user&nbsp;key)))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                 036&nbsp;&nbsp;
+                </span><br/>
+<span class="partial" title="9 out of 10 forms covered">
+                 037&nbsp;&nbsp;(defonce&nbsp;return&nbsp;(atom&nbsp;{}))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                 038&nbsp;&nbsp;
+                </span><br/>
+<span class="partial" title="1 out of 3 forms covered">
+                 039&nbsp;&nbsp;(defn&nbsp;winium&nbsp;[data_user]
+                </span><br/>
+<span class="not-covered" title="0 out of 5 forms covered">
+                 040&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[ip&nbsp;(get-data&nbsp;&quot;ip&quot;&nbsp;data_user)
+                </span><br/>
+<span class="not-covered" title="0 out of 4 forms covered">
+                 041&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;command&nbsp;(get-data&nbsp;&quot;comandos&quot;&nbsp;data_user)
+                </span><br/>
+<span class="not-covered" title="0 out of 4 forms covered">
+                 042&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen&nbsp;(get-data&nbsp;&quot;screen&quot;&nbsp;data_user)
+                </span><br/>
+<span class="not-covered" title="0 out of 3 forms covered">
+                 043&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;option&nbsp;(build-option&nbsp;&quot;C:&#x2F;windows&#x2F;system32&#x2F;cmd.exe&quot;)
+                </span><br/>
+<span class="not-covered" title="0 out of 3 forms covered">
+                 044&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;url&nbsp;(build-url&nbsp;ip)
+                </span><br/>
+<span class="not-covered" title="0 out of 4 forms covered">
+                 045&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;driver&nbsp;(build-driver&nbsp;url&nbsp;option)
+                </span><br/>
+<span class="not-covered" title="0 out of 3 forms covered">
+                 046&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;window&nbsp;(build-window&nbsp;driver)]
+                </span><br/>
+<span class="not-covered" title="0 out of 8 forms covered">
+                 047&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(.sendKeys&nbsp;window&nbsp;(into-array&nbsp;[(str&nbsp;command&nbsp;&quot;\r&quot;)]))
+                </span><br/>
+<span class="not-covered" title="0 out of 2 forms covered">
+                 048&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[texto&nbsp;(.getText&nbsp;window)]
+                </span><br/>
+<span class="not-covered" title="0 out of 6 forms covered">
+                 049&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(swap!&nbsp;return&nbsp;assoc&nbsp;:texto&nbsp;texto))
+                </span><br/>
+<span class="not-covered" title="0 out of 5 forms covered">
+                 050&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(true?&nbsp;(Boolean&#x2F;valueOf&nbsp;screen))
+                </span><br/>
+<span class="not-covered" title="0 out of 3 forms covered">
+                 051&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[scrFile&nbsp;(.getScreenshotAs&nbsp;driver&nbsp;OutputType&#x2F;FILE)]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 052&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;(FileUtils&#x2F;copyFile&nbsp;scrFile&nbsp;(new&nbsp;File&nbsp;&quot;&#x2F;home&#x2F;screenshot.png&quot;))
+                </span><br/>
+<span class="not-covered" title="0 out of 3 forms covered">
+                 053&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(println&nbsp;(.getAbsolutePath&nbsp;scrFile))
+                </span><br/>
+<span class="not-covered" title="0 out of 11 forms covered">
+                 054&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(swap!&nbsp;return&nbsp;assoc&nbsp;:image&nbsp;(str&nbsp;&quot;data:image&#x2F;png;base64,&quot;&nbsp;(encoder&nbsp;(.toURI&nbsp;scrFile)))))
+                </span><br/>
+<span class="not-covered" title="0 out of 6 forms covered">
+                 055&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(swap!&nbsp;return&nbsp;assoc&nbsp;:image&nbsp;nil))
+                </span><br/>
+<span class="not-covered" title="0 out of 2 forms covered">
+                 056&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(.close&nbsp;driver))&nbsp;@return)
+                </span><br/>
+ </body>
+</html>

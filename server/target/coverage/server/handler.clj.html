@@ -1,0 +1,161 @@
+<html>
+ <head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="stylesheet" href="../coverage.css"/>  <title> server/handler.clj </title>
+ </head>
+ <body>
+<span class="covered" title="1 out of 1 forms covered">
+                 001&nbsp;&nbsp;(ns&nbsp;server.handler
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 002&nbsp;&nbsp;&nbsp;&nbsp;(:require&nbsp;[server.command&nbsp;:as&nbsp;command]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 003&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[server.winium&nbsp;:as&nbsp;winium]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 004&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[compojure.core&nbsp;:refer&nbsp;[GET&nbsp;POST&nbsp;OPTIONS&nbsp;defroutes]]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 005&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[compojure.route&nbsp;:as&nbsp;route]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 006&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ring.util.response&nbsp;:refer&nbsp;[resource-response&nbsp;response]]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 007&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ring.middleware.json&nbsp;:as&nbsp;middleware]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 008&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ring.middleware.defaults&nbsp;:refer&nbsp;[wrap-defaults&nbsp;api-defaults]]
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 009&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;[ring.middleware.cors&nbsp;:refer&nbsp;[wrap-cors]]))
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                 010&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ring.middleware.cors&nbsp;:refer&nbsp;:all]))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                 011&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                 012&nbsp;&nbsp;(defn&nbsp;view&nbsp;[]
+                </span><br/>
+<span class="not-covered" title="0 out of 5 forms covered">
+                 013&nbsp;&nbsp;&nbsp;&nbsp;{:status&nbsp;200
+                </span><br/>
+<span class="not-covered" title="0 out of 3 forms covered">
+                 014&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:headers&nbsp;{&quot;Content-Type&quot;&nbsp;&quot;text&#x2F;html&quot;}
+                </span><br/>
+<span class="not-covered" title="0 out of 3 forms covered">
+                 015&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:body&nbsp;(slurp&nbsp;&quot;resources&#x2F;public&#x2F;index.html&quot;)})
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                 016&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                 017&nbsp;&nbsp;(defn&nbsp;request-command&nbsp;[req]
+                </span><br/>
+<span class="not-covered" title="0 out of 4 forms covered">
+                 018&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[body&nbsp;(:body&nbsp;req)
+                </span><br/>
+<span class="not-covered" title="0 out of 5 forms covered">
+                 019&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data_user&nbsp;(read-string&nbsp;(slurp&nbsp;body))
+                </span><br/>
+<span class="not-covered" title="0 out of 7 forms covered">
+                 020&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data_user&nbsp;(update&nbsp;data_user&nbsp;:port&nbsp;#(Integer&#x2F;parseInt&nbsp;%))]
+                </span><br/>
+<span class="not-covered" title="0 out of 5 forms covered">
+                 021&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:status&nbsp;200
+                </span><br/>
+<span class="not-covered" title="0 out of 3 forms covered">
+                 022&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:headers&nbsp;{&quot;Content-Type&quot;&nbsp;&quot;application&#x2F;json&quot;}
+                </span><br/>
+<span class="not-covered" title="0 out of 5 forms covered">
+                 023&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:body&nbsp;(response&nbsp;(command&#x2F;command&nbsp;data_user))}))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                 024&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                 025&nbsp;&nbsp;(defn&nbsp;request-winium&nbsp;[req]
+                </span><br/>
+<span class="not-covered" title="0 out of 4 forms covered">
+                 026&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[body&nbsp;(:body&nbsp;req)
+                </span><br/>
+<span class="not-covered" title="0 out of 5 forms covered">
+                 027&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data_user&nbsp;(read-string&nbsp;(slurp&nbsp;body))]
+                </span><br/>
+<span class="not-covered" title="0 out of 5 forms covered">
+                 028&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{:status&nbsp;200
+                </span><br/>
+<span class="not-covered" title="0 out of 3 forms covered">
+                 029&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:headers&nbsp;{&quot;Content-Type&quot;&nbsp;&quot;application&#x2F;json&quot;}
+                </span><br/>
+<span class="not-covered" title="0 out of 5 forms covered">
+                 030&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:body&nbsp;(response&nbsp;(winium&#x2F;winium&nbsp;data_user))}))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                 031&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                 032&nbsp;&nbsp;(defn&nbsp;json&nbsp;[data_user]
+                </span><br/>
+<span class="covered" title="5 out of 5 forms covered">
+                 033&nbsp;&nbsp;&nbsp;&nbsp;{:status&nbsp;200
+                </span><br/>
+<span class="covered" title="3 out of 3 forms covered">
+                 034&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:headers&nbsp;{&quot;Content-Type&quot;&nbsp;&quot;application&#x2F;json&quot;}
+                </span><br/>
+<span class="covered" title="7 out of 7 forms covered">
+                 035&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:body&nbsp;[{:name&nbsp;data_user}&nbsp;{:name&nbsp;data_user}]})
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                 036&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="3 out of 3 forms covered">
+                 037&nbsp;&nbsp;(defroutes&nbsp;app-routes
+                </span><br/>
+<span class="partial" title="5 out of 10 forms covered">
+                 038&nbsp;&nbsp;&nbsp;&nbsp;(POST&nbsp;&nbsp;&quot;&#x2F;ssh&#x2F;command&#x2F;&quot;&nbsp;req&nbsp;(request-command&nbsp;req))
+                </span><br/>
+<span class="partial" title="5 out of 10 forms covered">
+                 039&nbsp;&nbsp;&nbsp;&nbsp;(POST&nbsp;&nbsp;&quot;&#x2F;winium&#x2F;&quot;&nbsp;req&nbsp;(request-winium&nbsp;req))
+                </span><br/>
+<span class="partial" title="5 out of 9 forms covered">
+                 040&nbsp;&nbsp;&nbsp;&nbsp;(OPTIONS&nbsp;&quot;&#x2F;&quot;&nbsp;[]&nbsp;(view))
+                </span><br/>
+<span class="partial" title="5 out of 9 forms covered">
+                 041&nbsp;&nbsp;&nbsp;&nbsp;(GET&nbsp;&nbsp;&quot;&#x2F;&quot;&nbsp;[]&nbsp;(view))
+                </span><br/>
+<span class="covered" title="3 out of 3 forms covered">
+                 042&nbsp;&nbsp;&nbsp;&nbsp;(route&#x2F;resources&nbsp;&quot;&#x2F;&quot;)
+                </span><br/>
+<span class="covered" title="3 out of 3 forms covered">
+                 043&nbsp;&nbsp;&nbsp;&nbsp;(route&#x2F;not-found&nbsp;&quot;Not&nbsp;Found&quot;))
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                 044&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                 045&nbsp;&nbsp;(def&nbsp;app
+                </span><br/>
+<span class="covered" title="2 out of 2 forms covered">
+                 046&nbsp;&nbsp;&nbsp;&nbsp;(-&gt;&nbsp;app-routes
+                </span><br/>
+<span class="covered" title="3 out of 3 forms covered">
+                 047&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(wrap-cors&nbsp;#&quot;.&quot;)
+                </span><br/>
+<span class="covered" title="3 out of 3 forms covered">
+                 048&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(wrap-cors&nbsp;identity)
+                </span><br/>
+<span class="covered" title="2 out of 2 forms covered">
+                 049&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(middleware&#x2F;wrap-json-body)
+                </span><br/>
+<span class="covered" title="2 out of 2 forms covered">
+                 050&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(middleware&#x2F;wrap-json-response)
+                </span><br/>
+<span class="covered" title="2 out of 2 forms covered">
+                 051&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(wrap-defaults&nbsp;api-defaults)))
+                </span><br/>
+ </body>
+</html>
