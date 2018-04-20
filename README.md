@@ -74,6 +74,7 @@ All other libraries we are going to download through lein, below i am giving my 
     `
     git clone https://github.com/andresr22/winium-sample-clojure.git
     `
+    
     `
     cd winium-sample-clojure
     `
@@ -83,6 +84,7 @@ All other libraries we are going to download through lein, below i am giving my 
     `
     cd server
     `
+    
     `
     lein ring server
     `
@@ -101,6 +103,7 @@ Go to the app directory and run the figwheel project
 `
 cd winiunapp
 `
+
 `
 lein figwheel
 `
