@@ -105,7 +105,7 @@ cd winiunapp
 lein figwheel
 `
 Automatically the browser open a new tab in `http://localhost:3449/index.html`
-![Winium Interface](https://github.com/andresr22/winium-sample-clojure/raw/master/assets/interfface.png)
+![Winium Interface](https://github.com/andresr22/winium-sample-clojure/raw/master/assets/interface.png)
 
 * __IP Server__.- is the ip from the winium server.
 * __Command__.- the command you will send to the Windows cmd.
